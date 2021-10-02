@@ -1,51 +1,48 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-import actions from './actions';
+import {
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  changeFilter,
+} from './actions';
 
 const items = createReducer([], {
-  [actions.addContact]: (state, { payload }) => {
+  [fetchContactsSuccess]: (_, { payload }) => payload,
+  [addContactSuccess]: (state, { payload }) => {
     if (state.find(({ name }) => name === payload.name)) {
       alert(`${payload.name} is already in contacts`);
       return;
     }
     return [payload, ...state];
   },
-  [actions.deleteContact]: (state, { payload }) =>
+  [deleteContactSuccess]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
 });
 
 const filter = createReducer('', {
-  [actions.changeFilter]: (_, { payload }) => payload,
+  [changeFilter]: (_, { payload }) => payload,
+});
+const loading = createReducer(false, {
+  [fetchContactsRequest]: () => true,
+  [fetchContactsSuccess]: () => false,
+  [fetchContactsError]: () => false,
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
 });
 
 export default combineReducers({
+  loading,
   items,
   filter,
 });
-
-//=============Redux=========================
-
-// import actions from './actions';
-// import types from './types';
-
-// const items = (state = [], { type, payload }) => {
-//   switch (type) {
-//     case types.ADDCONTACT:
-//       return [payload, ...state];
-//     case types.DELETE:
-//       return state.filter(contact => contact.id !== payload);
-
-//     default:
-//       return state;
-//   }
-// };
-
-// const filter = (state = '', { type, payload }) => {
-//   switch (type) {
-//     case types.CHANGE_FILTER:
-//       return payload;
-
-//     default:
-//       return state;
-//   }
-// };
