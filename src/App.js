@@ -15,6 +15,7 @@ class App extends Component {
     return (
       <>
         <h1>Телефонная книга</h1>
+        {this.props.isLoadingContacts && <h2>Загружаем...</h2>}
         <Title title={'Добавить контакт'} />
         <AddContacts />
         <Filter />
@@ -24,11 +25,16 @@ class App extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  isLoadingContacts: state.contacts.loading,
+});
+
 const mapDispatchToProps = dispatch => ({
   fetchContacts: () => dispatch(operations.fetchContacts()),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 App.propTypes = {
   contacts: PropTypes.array,
