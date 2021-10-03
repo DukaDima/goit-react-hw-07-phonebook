@@ -1,19 +1,24 @@
 {
   "contacts": [
     {
-      "name": "Petya Ivanov",
-      "phone": "12345678",
-      "id": 1
-    },
-    {
       "name": "Vanya Petrov",
       "phone": "13243857",
       "id": 2
     },
     {
+      "name": "eff",
+      "phone": "12345678",
+      "id": 4
+    },
+    {
       "name": "batman",
       "phone": "12345678",
-      "id": 3
+      "id": 6
+    },
+    {
+      "name": "Petya Ivanov",
+      "phone": "13243857",
+      "id": 7
     }
   ]
 }
